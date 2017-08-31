@@ -6,31 +6,31 @@
 
 ;;; "geometry" goes here. Hacks and glory await!
 
-(declaim (optimize (speed 3) (safety 3) (size 0) (debug 3)))
+(declaim (optimize (speed 3)))
 
 (defstruct rgba-color 
-  (red 0)
-  (green 0)
-  (blue 0)
-  (alpha 0))
+  (red 0.0d0 :type double-float)
+  (green 0.0d0 :type double-float)
+  (blue 0.0d0 :type double-float)
+  (alpha 0.0d0 :type double-float))
 
 (defun random-color ()
-  (make-rgba-color :red (+ 0.15 (random 0.5))
-                   :green (+ 0.15 (random 0.5))
-                   :blue (+ 0.15 (random 0.5))
-                   :alpha 1.0))
+  (make-rgba-color :red (+ 0.15d0 (random 0.5d0))
+                   :green (+ 0.15d0 (random 0.5d0))
+                   :blue (+ 0.15d0 (random 0.5d0))
+                   :alpha 1.0d0))
 
 (defstruct point
   "Three double-floats that identify a location in 3D space."
-  (x 0.0 :type double-float)
-  (y 0.0 :type double-float)
-  (z 0.0 :type double-float))
+  (x 0.0d0 :type double-float)
+  (y 0.0d0 :type double-float)
+  (z 0.0d0 :type double-float))
 
 (defstruct rvector
   "Three double-floats."
-  (x 0.0 :type double-float)
-  (y 0.0 :type double-float)
-  (z 0.0 :type double-float))
+  (x 0.0d0 :type double-float)
+  (y 0.0d0 :type double-float)
+  (z 0.0d0 :type double-float))
 
 (defun tri-normal (pt1 pt2 pt3)
   (normalize (cross  (psub pt2 pt1) (psub pt3 pt1))))
@@ -71,7 +71,7 @@
     (let* ((a (distance pt1 pt2))
            (b (distance pt1 pt3))
            (c (distance pt2 pt3))
-           (s (* 0.5 (+ a b c))))
+           (s (* 0.5d0 (+ a b c))))
       (the double-float (sqrt (* s (- s a) (- s b) (- s c)))))))
 
 (defmacro each-point-to-vector (op p1 p2)
@@ -136,5 +136,5 @@
   (let ((vl (vlength vect)))
     (if (zerop vl)
         vect
-        (vscale (/ 1.0 vl) vect))))
+        (vscale (/ 1.0d0 vl) vect))))
 
